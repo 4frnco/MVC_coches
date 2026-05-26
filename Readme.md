@@ -71,7 +71,7 @@ sequenceDiagram
     
 ```
 
-Diagrama de secuencia:
+Diagrama de secuencia de mi codigo actualizado:
 
 ```mermaid
 sequenceDiagram
