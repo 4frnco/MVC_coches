@@ -30,7 +30,6 @@ public class View {
         System.out.println(matricula + ": " + v + " km/hr");
         return true;
     }
-
     /**
      * Muestra el estado actual de la gasolina y los kilómetros de un coche.
      * @param matricula Matrícula del coche.
