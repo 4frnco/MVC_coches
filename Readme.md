@@ -73,41 +73,41 @@ sequenceDiagram
 
 Diagrama de secuencia:
 
-classDiagram
-class Coche {
--String matricula
--String modelo
--Integer velocidad
--double kilometrosRecorridos
--double gasolinaLitros
-+Coche(String modelo, String matricula)
-+getMatricula() String
-+getModelo() String
-+getVelocidad() Integer
-+getKilometrosRecorridos() double
-+getGasolinaLitros() double
-+setters() void
-}
-class Controller {
-+main(String[] args) void$
-}
-class View {
--Scanner sc
-+View()
-+muestraVelocidad(String matricula, Integer v) boolean
-+muestraEstadoAvanzado(String matricula, double km, double gasolina) void
-+menu() String[]
-}
-class Model {
--ArrayList~Coche~ parking
-+crearCoche(String modelo, String matricula) Coche
-+getCoche(String matricula) Coche
-+cambiarVelocidad(String matricula, Integer v) int
-+getVelocidad(String matricula) int
-+avanzar(String matricula, double metros) boolean
-+cargarGasolina(String matricula, double litros) boolean
-}
-Controller "1" *-- "1" Model : association
-Controller "1" *-- "1" View : association
-Model "1" *-- "0..n" Coche : association
+sequenceDiagram
+participant Model
+participant Controller
+participant View
 
+    Controller->>Model: avanzar("SBC 1234", 5000.0)
+    activate Model
+    Model->>Model: cálculos (km y gasolina)
+    Model-->>Controller: boolean
+    deactivate Model
+    
+    Controller->>Model: getCoche("SBC 1234")
+    activate Model
+    Model-->>Controller: Coche
+    deactivate Model
+    
+    Controller->>View: muestraEstadoAvanzado("SBC 1234", 5.0, 48.5)
+    activate View
+    View->>View: System.out.println()
+    View-->>Controller: void
+    deactivate View
+
+    Controller->>Model: cargarGasolina("SBC 1234", 20.0)
+    activate Model
+    Model->>Model: cálculos (sumar litros)
+    Model-->>Controller: boolean
+    deactivate Model
+    
+    Controller->>Model: getCoche("SBC 1234")
+    activate Model
+    Model-->>Controller: Coche
+    deactivate Model
+    
+    Controller->>View: muestraEstadoAvanzado("SBC 1234", 5.0, 68.5)
+    activate View
+    View->>View: System.out.println()
+    View-->>Controller: void
+    deactivate View
