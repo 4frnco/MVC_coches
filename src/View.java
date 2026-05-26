@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 /**
- * Clase encargada de la interacción con el usuario (Interfaz por consol).
+ * Clase encargada de la interacción con el usuario (Interfaz por consola).
  * @author Franco
  * @version 2.0
  */
