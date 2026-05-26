@@ -78,60 +78,48 @@ participant Controller
 participant Model
 participant View
 
-    Note over Controller: Fase de Inicialización (main)
+    Note over Controller, View: Flujo de Avanzar (metros)
+    Controller->>View: menu()
+    activate View
+    View-->>Controller: ["a", "SBC 1234", "5000"]
+    deactivate View
     
-    Controller->>Model: crearCoche("LaFerrari", "SBC 1234")
+    Controller->>Model: avanzar("SBC 1234", 5000.0)
     activate Model
-    Model-->>Controller: aux (Coche)
+    Note over Model: Actualiza kilómetros y resta gasolina
+    Model-->>Controller: true
     deactivate Model
-
-    Controller->>Model: crearCoche("Alpine", "HYU 4567")
-    Controller->>Model: crearCoche("Aston Martin", "FGH 3333")
-
+    
     Controller->>Model: getCoche("SBC 1234")
     activate Model
-    Model-->>Controller: ferrari (Coche)
+    Model-->>Controller: Coche
     deactivate Model
-
-    Controller->>Model: cambiarVelocidad("SBC 1234", 30)
-    activate Model
-    Model-->>Controller: 30 (int)
-    deactivate Model
-
-    Controller->>Model: getVelocidad("SBC 1234")
-    activate Model
-    Model-->>Controller: 30 (int)
-    deactivate Model
-
-    Controller->>View: muestraVelocidad("SBC 1234", 30)
+    
+    Controller->>View: muestraEstadoAvanzado("SBC 1234", 5.0, 48.5)
     activate View
-    View-->>Controller: true (boolean)
+    View-->>Controller: void
     deactivate View
 
-    Note over Controller: Bucle de la aplicación (while)
+    Note over Controller, View: Flujo de Cargar gasolina (litros)
+    Controller->>View: menu()
+    activate View
+    View-->>Controller: ["g", "SBC 1234", "20"]
+    deactivate View
+    
+    Controller->>Model: cargarGasolina("SBC 1234", 20.0)
+    activate Model
+    Note over Model: Suma litros al depósito
+    Model-->>Controller: true
+    deactivate Model
+    
+    Controller->>Model: getCoche("SBC 1234")
+    activate Model
+    Model-->>Controller: Coche
+    deactivate Model
+    
+    Controller->>View: muestraEstadoAvanzado("SBC 1234", 5.0, 68.5)
+    activate View
+    View-->>Controller: void
+    deactivate View
 
-    loop Ejecución continua
-        Controller->>View: menu() [Llamada estática]
-        activate View
-        View-->>Controller: respuesta (String[])
-        deactivate View
 
-        alt respuesta[0] == "c" (Crear Coche)
-            Controller->>Model: crearCoche(respuesta[1], respuesta[2])
-            activate Model
-            Model-->>Controller: aux (Coche)
-            deactivate Model
-        else respuesta[0] == "v" (Ver Velocidad)
-            Controller->>Model: getVelocidad(respuesta[1])
-            activate Model
-            Model-->>Controller: velocidad (int)
-            deactivate Model
-            
-            Controller->>View: muestraVelocidad(respuesta[1], velocidad)
-            activate View
-            View-->>Controller: confirmacion (boolean)
-            deactivate View
-        else respuesta[0] == "s" (Salir)
-            Note over Controller: break e indica fin
-        end
-    end
