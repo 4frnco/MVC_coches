@@ -6,7 +6,7 @@
 public class Controller {
 
     /**
-     * Método main que lanza el flujo principal.
+     * Metodo main que lanza el flujo principal.
      * @param args Argumentos de la línea de comando.
      */
     public static void main(String[] args) {
